@@ -1,50 +1,50 @@
-abstract class NewsAppStates {}
+abstract class ShopAppStates {}
 
-class NewsAppInitialState extends NewsAppStates {}
+class ShopAppInitialState extends ShopAppStates {}
 
-class NewsAppBotNavState extends NewsAppStates {}
+class ShopAppBotNavState extends ShopAppStates {}
 
-class NewsGetBusinessLoadingState extends NewsAppStates {}
+class ShopGetBusinessLoadingState extends ShopAppStates {}
 
-class NewsGetBusinessSuccessState extends NewsAppStates {}
+class ShopGetBusinessSuccessState extends ShopAppStates {}
 
-class NewsGetBusinessErrorState extends NewsAppStates {
-
-  String error;
-  NewsGetBusinessErrorState(this.error);
-}
-
-class NewsGetSportsLoadingState extends NewsAppStates {}
-
-class NewsGetSportsSuccessState extends NewsAppStates {}
-
-class NewsGetSportsErrorState extends NewsAppStates {
+class ShopGetBusinessErrorState extends ShopAppStates {
 
   String error;
-  NewsGetSportsErrorState(this.error);
+  ShopGetBusinessErrorState(this.error);
 }
 
-class NewsGetScienceLoadingState extends NewsAppStates {}
+class ShopGetSportsLoadingState extends ShopAppStates {}
 
-class NewsGetScienceSuccessState extends NewsAppStates {}
+class ShopGetSportsSuccessState extends ShopAppStates {}
 
-class NewsGetScienceErrorState extends NewsAppStates {
+class ShopGetSportsErrorState extends ShopAppStates {
 
   String error;
-  NewsGetScienceErrorState(this.error);
+  ShopGetSportsErrorState(this.error);
 }
 
-class NewsGetSearchLoadingState extends NewsAppStates {}
+class ShopGetScienceLoadingState extends ShopAppStates {}
 
-class NewsGetSearchSuccessState extends NewsAppStates {}
+class ShopGetScienceSuccessState extends ShopAppStates {}
 
-class NewsGetSearchErrorState extends NewsAppStates {
+class ShopGetScienceErrorState extends ShopAppStates {
 
   String error;
-  NewsGetSearchErrorState(this.error);
+  ShopGetScienceErrorState(this.error);
 }
 
-class NewsChangeThemeModeState extends NewsAppStates {}
+class ShopGetSearchLoadingState extends ShopAppStates {}
+
+class ShopGetSearchSuccessState extends ShopAppStates {}
+
+class ShopGetSearchErrorState extends ShopAppStates {
+
+  String error;
+  ShopGetSearchErrorState(this.error);
+}
+
+class ShopChangeThemeModeState extends ShopAppStates {}
 
 
 

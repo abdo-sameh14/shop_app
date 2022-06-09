@@ -205,3 +205,5 @@ Widget defaultTextFormField(
     );
 
 Future navigateTo(context, nextScreen) => Navigator.push(context, MaterialPageRoute(builder: (context) => nextScreen));
+
+Future navigateAndReplaceTo(context, nextScreen) => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => nextScreen), (route) => false);

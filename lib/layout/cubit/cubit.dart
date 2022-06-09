@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/cubit/states.dart';
-import 'package:news_app/moduels/business_screen/business_screen.dart';
-import 'package:news_app/moduels/science_screen/science_screen.dart';
 import 'package:news_app/moduels/settings_screen/settings_screen.dart';
-import 'package:news_app/moduels/sports_screen/sports.dart';
 import 'package:news_app/shared/network/local/chache%20_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
-class NewsCubit extends Cubit<NewsAppStates> {
-  NewsCubit() : super(NewsAppInitialState());
+class ShopCubit extends Cubit<ShopAppStates> {
+  ShopCubit() : super(ShopAppInitialState());
 
-  static NewsCubit get(context) => BlocProvider.of(context);
+  static ShopCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
 
   List<Widget> screen = [
-    const BusinessScreen(),
-    const SportsScreen(),
-    const ScienceScreen(),
+    // const BusinessScreen(),
+    // const SportsScreen(),
+    // const ScienceScreen(),
     const SettingsScreen(),
   ];
 
@@ -49,13 +46,13 @@ class NewsCubit extends Cubit<NewsAppStates> {
     if (index == 2){
       getScience();
     }
-    emit(NewsAppBotNavState());
+    emit(ShopAppBotNavState());
   }
 
   List business = [];
 
   void getBusiness(){
-    emit(NewsGetBusinessLoadingState());
+    emit(ShopGetBusinessLoadingState());
 
     if (business.isEmpty){
       DioHelper.getData(
@@ -66,21 +63,21 @@ class NewsCubit extends Cubit<NewsAppStates> {
             'apiKey':'ab4556f7a2b24bfd8da4080aef8a74d8',
           }).then((value) {
         business = value.data['articles'];
-        emit(NewsGetBusinessSuccessState());
+        emit(ShopGetBusinessSuccessState());
       }).catchError((error){
         print(error.toString());
-        emit(NewsGetBusinessErrorState(error.toString()));
+        emit(ShopGetBusinessErrorState(error.toString()));
       });
     }
     else {
-      emit(NewsGetBusinessSuccessState());
+      emit(ShopGetBusinessSuccessState());
     }
   }
 
   List sports = [];
 
   void getSports(){
-    emit(NewsGetSportsLoadingState());
+    emit(ShopGetSportsLoadingState());
 
     if(sports.isEmpty){DioHelper.getData(
         url: 'v2/top-headlines',
@@ -90,21 +87,21 @@ class NewsCubit extends Cubit<NewsAppStates> {
           'apiKey':'ab4556f7a2b24bfd8da4080aef8a74d8',
         }).then((value) {
       sports = value.data['articles'];
-      emit(NewsGetSportsSuccessState());
+      emit(ShopGetSportsSuccessState());
     }).catchError((error){
       print(error.toString());
-      emit(NewsGetSportsErrorState(error.toString()));
+      emit(ShopGetSportsErrorState(error.toString()));
     },
     );
     }
-    else{emit(NewsGetSportsSuccessState());}
+    else{emit(ShopGetSportsSuccessState());}
 
   }
 
   List science = [];
 
   void getScience(){
-    emit(NewsGetScienceLoadingState());
+    emit(ShopGetScienceLoadingState());
     if(science.isEmpty){DioHelper.getData(
         url: 'v2/top-headlines',
         query: {
@@ -113,12 +110,12 @@ class NewsCubit extends Cubit<NewsAppStates> {
           'apiKey':'ab4556f7a2b24bfd8da4080aef8a74d8',
         }).then((value) {
       science = value.data['articles'];
-      emit(NewsGetScienceSuccessState());
+      emit(ShopGetScienceSuccessState());
     }).catchError((error){
       print(error.toString());
-      emit(NewsGetScienceErrorState(error.toString()));
+      emit(ShopGetScienceErrorState(error.toString()));
     });}
-    else{emit(NewsGetScienceSuccessState());}
+    else{emit(ShopGetScienceSuccessState());}
   }
 
   bool darkMode = false;
@@ -126,12 +123,12 @@ class NewsCubit extends Cubit<NewsAppStates> {
   void toggleDarkMode({bool? fromShared}){
     if(fromShared != null){
       darkMode = fromShared;
-      emit(NewsChangeThemeModeState());
+      emit(ShopChangeThemeModeState());
     }
     else {
       darkMode = !darkMode;
       CacheHelper?.setBool(key: 'isDark', value: darkMode);
-      emit(NewsChangeThemeModeState());
+      emit(ShopChangeThemeModeState());
     }
 
   }
@@ -140,7 +137,7 @@ class NewsCubit extends Cubit<NewsAppStates> {
 
   void getSearch(String value){
     search = [];
-    emit(NewsGetSearchLoadingState());
+    emit(ShopGetSearchLoadingState());
 
     DioHelper.getData(
         url: 'v2/everything',
@@ -149,10 +146,10 @@ class NewsCubit extends Cubit<NewsAppStates> {
           'apiKey':'ab4556f7a2b24bfd8da4080aef8a74d8',
         }).then((value) {
       search = value.data['articles'];
-      emit(NewsGetSearchSuccessState());
+      emit(ShopGetSearchSuccessState());
     }).catchError((error) {
       print(error.toString());
-      emit(NewsGetSearchErrorState(error.toString()));
+      emit(ShopGetSearchErrorState(error.toString()));
     });
   }
 }
