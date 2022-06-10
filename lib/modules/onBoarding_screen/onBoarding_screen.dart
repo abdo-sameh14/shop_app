@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/moduels/login_screen/login_screen.dart';
+import 'package:news_app/modules/login_screen/login_screen.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -54,7 +54,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
         actions: [
           TextButton(
             onPressed: (){
-              navigateAndReplaceTo(context, const LoginScreen());
+              navigateAndReplaceTo(context, LoginScreen());
             },
             child: const Text(
               'SKIP',
@@ -89,6 +89,9 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                       isFirst = true;
                     });
                   }
+                  else if (index >0){
+                    isFirst = false;
+                  }
                 },
                 itemBuilder: (context, index) =>buildBoardingItem(boarding[index]),
                 itemCount: boarding.length,
@@ -100,6 +103,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
             Row(
               children: [
                 FloatingActionButton(
+                  heroTag: 'back button',
                   onPressed: (){
                     if(isFirst == false)
                     {
@@ -130,9 +134,10 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                 ),
                 const Spacer(),
                 FloatingActionButton(
+                  heroTag: 'forward button',
                   onPressed: (){
                     if (isLast){
-                      navigateAndReplaceTo(context, const LoginScreen());
+                      navigateAndReplaceTo(context, LoginScreen());
                     }
                     else {
                       boardingController.nextPage(duration: const Duration(

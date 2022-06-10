@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/cubit/cubit.dart';
 import 'package:news_app/layout/cubit/states.dart';
-import 'package:news_app/moduels/onBoarding_screen/onBoarding_screen.dart';
+import 'package:news_app/modules/onBoarding_screen/onBoarding_screen.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:page_transition/page_transition.dart';
 

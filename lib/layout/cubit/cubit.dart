@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/cubit/states.dart';
-import 'package:news_app/moduels/settings_screen/settings_screen.dart';
+import 'package:news_app/modules/settings_screen/settings_screen.dart';
 import 'package:news_app/shared/network/local/chache%20_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 

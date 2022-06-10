@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:news_app/moduels/onBoarding_screen/onBoarding_screen.dart';
+import 'package:news_app/modules/onBoarding_screen/onBoarding_screen.dart';
 import 'package:news_app/shared/styles/themes.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';

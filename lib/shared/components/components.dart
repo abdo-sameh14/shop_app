@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/moduels/web_view_screen/web_view_screen.dart';
+import 'package:news_app/modules/web_view_screen/web_view_screen.dart';
+import 'package:news_app/shared/styles/colors.dart';
 
 Widget buildArticleItem(Map article, context) => InkWell(
   onTap: (){
@@ -176,31 +177,55 @@ Widget defaultTextFormField(
       keyboardType: type,
       obscureText: isPassword,
       onTap: onTapFunction,
-      style: const TextStyle(color: Colors.white),
+      // style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         // fillColor: Colors.white,
         // filled: true,
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-              color: Colors.grey
-          ),
-        ),
+        // enabledBorder: const OutlineInputBorder(
+        //   borderSide: BorderSide(
+        //       color: Colors.grey
+        //   ),
+        // ),
         // focusedBorder: const OutlineInputBorder(
         //   borderSide: BorderSide(
         //       color: Color(0xff045c99)
         //   ),
         // ),
         labelText: label,
-        labelStyle: TextStyle(color: Colors.grey[600]),
+        // labelStyle: TextStyle(color: Colors.grey[600]),
         prefixIcon: Icon(prefix,
-          color: Colors.grey[600],
+          // color: Colors.grey[600],
         ),
         suffixIcon: suffix != null ? IconButton(
-          icon: Icon(suffix),
+          icon: Icon(suffix,
+          // color: defaultColor,
+          ),
           onPressed: suffixButtonFunction,
         )
             : null,
         border: border != true ? null : const OutlineInputBorder(),
+      ),
+    );
+
+Widget defaultButton(
+    {double width = double.infinity,
+      Color backgroundColor = defaultColor,
+      double radius = 10,
+      required void Function()? function,
+      required String text,
+      double fontSize = 25,
+      Color fontColor = Colors.white}) =>
+    Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius), color: backgroundColor),
+      width: width,
+      // color: Colors.lightBlue,
+      child: MaterialButton(
+        onPressed: function,
+        child: Text(
+          text.toUpperCase(),
+          style: TextStyle(fontSize: fontSize, color: fontColor),
+        ),
       ),
     );
 
