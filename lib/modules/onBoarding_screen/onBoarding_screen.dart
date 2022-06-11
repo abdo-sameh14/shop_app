@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/modules/Login_screen/Login_cubit.dart';
 import 'package:news_app/modules/login_screen/login_screen.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/network/local/chache%20_helper.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -17,13 +19,13 @@ class BoardingModel{
       });
 }
 
-class onBoardingScreen extends StatefulWidget {
+class OnBoardingScreen extends StatefulWidget {
 
   @override
-  State<onBoardingScreen> createState() => _onBoardingScreenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _onBoardingScreenState extends State<onBoardingScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
       image: 'assets/images/logo.png',
@@ -47,15 +49,23 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
   bool isLast = false;
   bool isFirst = false;
 
+  void submit(){
+    CacheHelper.setData(key: 'onBoarding', value: true).then((value) {
+      print(value);
+      if (value!){
+        navigateAndReplaceTo(context, LoginScreen());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    // var cubit = LoginScreenCubit.get(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: (){
-              navigateAndReplaceTo(context, LoginScreen());
-            },
+            onPressed: (){submit();},
             child: const Text(
               'SKIP',
               style: TextStyle(
@@ -137,7 +147,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                   heroTag: 'forward button',
                   onPressed: (){
                     if (isLast){
-                      navigateAndReplaceTo(context, LoginScreen());
+                      submit();
                     }
                     else {
                       boardingController.nextPage(duration: const Duration(
