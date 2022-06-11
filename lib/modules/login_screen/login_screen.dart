@@ -1,10 +1,13 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:news_app/layout/layout_screen.dart';
 import 'package:news_app/modules/Login_screen/Login_cubit.dart';
 import 'package:news_app/modules/login_screen/login_states.dart';
 import 'package:news_app/modules/register_screen/register_screen.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/network/local/chache%20_helper.dart';
 
 class LoginScreen extends StatelessWidget {
 
@@ -17,7 +20,22 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginScreenCubit(),
       child: BlocConsumer<LoginScreenCubit, LoginScreenStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is LoginScreenSuccessState){
+            if(state.loginModel!.status!){
+              CacheHelper.setData(key: 'token', value: state.loginModel!.data!.token).then((value)
+              => navigateAndReplaceTo(context, ShopLayoutScreen()));
+
+              showToast(msg: state.loginModel?.message, state: ToastStates.success);
+            }
+            else{
+              print(state.loginModel?.message);
+              showToast(msg: state.loginModel?.message, state: ToastStates.error);
+            }
+
+          }
+
+        },
         builder: (context, state) {
           var key = GlobalKey<FormState>();
           var cubit = LoginScreenCubit.get(context);

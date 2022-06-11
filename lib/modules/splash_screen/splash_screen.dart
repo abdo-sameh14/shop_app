@@ -49,7 +49,7 @@ class SplashScreen extends StatelessWidget {
               ],
             ),
           ),
-          nextScreen:  onBoardingScreen(),
+          nextScreen:  OnBoardingScreen(),
           backgroundColor: const Color(0xff212121),
           // darkModeOn ? const Color(0xff212121) : Colors.white.withOpacity(.87),
           animationDuration: const Duration(seconds: 1),

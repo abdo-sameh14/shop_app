@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:news_app/modules/web_view_screen/web_view_screen.dart';
 import 'package:news_app/shared/styles/colors.dart';
 
@@ -231,4 +232,38 @@ Widget defaultButton(
 
 Future navigateTo(context, nextScreen) => Navigator.push(context, MaterialPageRoute(builder: (context) => nextScreen));
 
-Future navigateAndReplaceTo(context, nextScreen) => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => nextScreen), (route) => false);
+Future navigateAndReplaceTo(context, nextScreen) =>
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => nextScreen), (route) => false);
+
+void showToast({
+  required String? msg,
+  required ToastStates state
+}){
+  Fluttertoast.showToast(
+      msg: msg!,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 5,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
+}
+
+enum ToastStates {success, error, warning}
+
+Color? chooseToastColor(ToastStates state){
+  Color? color;
+  switch(state){
+    case ToastStates.success:
+      color = Colors.green;
+      break;
+    case ToastStates.error:
+      color = Colors.red;
+      break;
+    case ToastStates.warning:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}
