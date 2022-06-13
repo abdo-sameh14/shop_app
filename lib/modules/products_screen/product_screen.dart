@@ -57,7 +57,6 @@ class ProductScreen extends StatelessWidget {
               pauseAutoPlayOnManualNavigate: true,
               pauseAutoPlayOnTouch: true,
               enableInfiniteScroll: true,
-              reverse: false,
               scrollPhysics: const BouncingScrollPhysics(),
             ))
       ],
