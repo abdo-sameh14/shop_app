@@ -1,6 +1,10 @@
+import 'package:news_app/layout/home_screen/home_%20screen.dart';
+import 'package:news_app/layout/home_screen/home_states.dart';
 import 'package:news_app/modules/Login_screen/Login_cubit.dart';
+import 'package:news_app/layout/home_screen/home_cubit.dart';
 import 'package:news_app/modules/login_screen/login_screen.dart';
 import 'package:news_app/modules/onBoarding_screen/onBoarding_screen.dart';
+import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/styles/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,12 +26,12 @@ void main(context) async {
       await CacheHelper.init();
       final bool? isDark = CacheHelper?.getBool(key: 'isDark');
       bool? onBoarding = CacheHelper?.getData(key: 'onBoarding') ?? false;
-      String? token = CacheHelper?.getData(key: 'token');
+      token = CacheHelper?.getData(key: 'token');
 
       final Widget widget;
       if(onBoarding!){
         if(token != null){
-          widget = ShopLayoutScreen();
+          widget = const HomeScreen();
         }else{
           widget = LoginScreen();
         }
@@ -55,15 +59,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => ShopCubit()
-            ..getBusiness()
-            ..toggleDarkMode(fromShared: isDark),
+          create: (BuildContext context) => HomeScreenCubit()..getHomeDate(),
         ),
         BlocProvider(
           create: (BuildContext context) => LoginScreenCubit()
         ),
       ],
-      child: BlocConsumer<ShopCubit, ShopAppStates>(
+      child: BlocConsumer<HomeScreenCubit, HomeScreenStates>(
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, state) {
           // bool darkModeOn = ShopCubit.get(context).darkMode;

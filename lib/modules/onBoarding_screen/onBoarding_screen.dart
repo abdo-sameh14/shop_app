@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_app/modules/Login_screen/Login_cubit.dart';
 import 'package:news_app/modules/login_screen/login_screen.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/network/local/chache%20_helper.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../layout/home_screen/home_ screen.dart';
 
 class BoardingModel{
   final String image;
@@ -53,7 +56,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     CacheHelper.setData(key: 'onBoarding', value: true).then((value) {
       print(value);
       if (value!){
-        navigateAndReplaceTo(context, LoginScreen());
+        if(token != null){
+          navigateAndReplaceTo(context, const HomeScreen());
+        }else{
+          navigateAndReplaceTo(context, LoginScreen());
+        }
+
       }
     });
   }
