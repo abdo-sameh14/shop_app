@@ -1,3 +1,4 @@
+import 'package:news_app/models/categories_model/categories_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
 
 abstract class HomeScreenStates {}
@@ -17,6 +18,19 @@ class HomeScreenErrorState extends HomeScreenStates {
 
   String error;
   HomeScreenErrorState(this.error);
+}
+
+class CategoryScreenSuccessState extends HomeScreenStates {
+
+  final CategoryModel? categoryModel;
+
+
+  CategoryScreenSuccessState(this.categoryModel);}
+
+class CategoryScreenErrorState extends HomeScreenStates {
+
+  String error;
+  CategoryScreenErrorState(this.error);
 }
 
 class HomeScreenChangeBotNavBar extends HomeScreenStates{}

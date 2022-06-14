@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => HomeScreenCubit()..getHomeDate(),
+          create: (BuildContext context) => HomeScreenCubit()..getHomeData()..getCategoryData(),
         ),
         BlocProvider(
           create: (BuildContext context) => LoginScreenCubit()
