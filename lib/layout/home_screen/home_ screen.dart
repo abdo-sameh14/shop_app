@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state){
         var cubit = HomeScreenCubit.get(context);
         return Scaffold(
+          backgroundColor: Colors.grey[300],
           appBar: AppBar(
             centerTitle: true,
             title: Text(
@@ -49,7 +50,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          body: cubit.navBarScreens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
             onTap: (index){
@@ -57,8 +57,8 @@ class HomeScreen extends StatelessWidget {
             },
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home'
+                  icon: Icon(Icons.home),
+                  label: 'Home'
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.category),
@@ -74,6 +74,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+          body: cubit.navBarScreens[cubit.currentIndex],
         );
       },
     );

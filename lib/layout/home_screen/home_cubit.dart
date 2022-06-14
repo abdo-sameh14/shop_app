@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/models/categories_model/categories_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
 import 'package:news_app/modules/categories_screen/categories_screen.dart';
 import 'package:news_app/modules/favourites_screen/favourites_screen.dart';
@@ -17,7 +18,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
 
   HomeModel? homeModel;
 
-  void getHomeDate(){
+  void getHomeData(){
     emit(HomeScreenLoadingState());
     DioHelper.getData(url: HOME, lang: 'en', token: token).then((value)
     {
@@ -31,6 +32,21 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }).catchError((error){
       print(error.toString());
       emit(HomeScreenErrorState(error.toString()));
+    });
+  }
+
+  CategoryModel? categoryModel;
+
+  void getCategoryData(){
+    DioHelper.getData(url: CATEGORIES, lang: 'en').then((value)
+    {
+      categoryModel = CategoryModel.fromJson(value.data);
+
+
+      emit(CategoryScreenSuccessState(categoryModel));
+    }).catchError((error){
+      print(error.toString());
+      emit(CategoryScreenErrorState(error.toString()));
     });
   }
 
