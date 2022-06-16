@@ -1,4 +1,6 @@
 import 'package:news_app/models/categories_model/categories_model.dart';
+import 'package:news_app/models/favourites_model/favourites_model.dart';
+import 'package:news_app/models/favourites_model/get_fav_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
 
 abstract class HomeScreenStates {}
@@ -31,6 +33,54 @@ class CategoryScreenErrorState extends HomeScreenStates {
 
   String error;
   CategoryScreenErrorState(this.error);
+}
+
+class FavouriteScreenSuccessState extends HomeScreenStates {
+
+  final FavouritesModel? favouritesModel;
+
+
+  FavouriteScreenSuccessState (this.favouritesModel);
+}
+
+class FavouriteScreenState extends HomeScreenStates {
+
+  final FavouritesModel? favouritesModel;
+
+
+  FavouriteScreenState (this.favouritesModel);
+}
+
+class FavouriteScreenFalseState extends HomeScreenStates {
+
+  final FavouritesModel? favouritesModel;
+
+
+  FavouriteScreenFalseState (this.favouritesModel);
+}
+
+class FavouriteScreenErrorState extends HomeScreenStates {
+
+  String error;
+  FavouriteScreenErrorState(this.error);
+}
+
+class GetFavouritesLoadingState extends HomeScreenStates {
+
+}
+
+class GetFavouritesSuccessState extends HomeScreenStates {
+
+  final GetFavouriteModel? getFavouriteModel;
+
+
+  GetFavouritesSuccessState (this.getFavouriteModel);
+}
+
+class GetFavouritesErrorState extends HomeScreenStates {
+
+  String error;
+  GetFavouritesErrorState(this.error);
 }
 
 class HomeScreenChangeBotNavBar extends HomeScreenStates{}

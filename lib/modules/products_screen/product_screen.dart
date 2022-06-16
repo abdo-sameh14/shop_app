@@ -6,6 +6,7 @@ import 'package:news_app/layout/home_screen/home_cubit.dart';
 import 'package:news_app/layout/home_screen/home_states.dart';
 import 'package:news_app/models/categories_model/categories_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
+import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/styles/colors.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -16,7 +17,18 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeScreenCubit, HomeScreenStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if(state is FavouriteScreenFalseState){
+          showToast(msg: state.favouritesModel?.message, state: ToastStates.error);
+        }
+        if(state is FavouriteScreenErrorState){
+          showToast(msg: state.error.toString(), state: ToastStates.error);
+        }
+        if(state is FavouriteScreenSuccessState)
+        {
+          showToast(msg: state.favouritesModel?.message, state: ToastStates.success);
+        }
+      },
       builder: (context, state) {
         var cubit = HomeScreenCubit.get(context);
         return ConditionalBuilder(
@@ -98,7 +110,7 @@ class ProductScreen extends StatelessWidget {
               fontSize: 25
             ),
           ),
-          gridViewBuilder(model.data!)
+          gridViewBuilder(model.data!, context)
         ],
       ),
     );
@@ -118,7 +130,7 @@ class ProductScreen extends StatelessWidget {
           width: 100,
           color: Colors.black.withOpacity(0.7),
           child: Text(
-            model.name,
+            model.name.toUpperCase(),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
@@ -131,7 +143,7 @@ class ProductScreen extends StatelessWidget {
     );
   }
 
-  Widget gridViewBuilder(HomeData model){
+  Widget gridViewBuilder(HomeData model, context){
     return Container(
       color: Colors.grey[300],
       child: GridView.count(
@@ -139,12 +151,12 @@ class ProductScreen extends StatelessWidget {
         shrinkWrap: true,
         mainAxisSpacing: 1,
         crossAxisSpacing: 1,
-        childAspectRatio: 1 / 1.58,
+        childAspectRatio: 1 / 1.62,
         crossAxisCount: 2,
         children:
           List.generate(
               model.products.length,
-              (index) => buildGridProduct(model.products[index]!),
+              (index) => buildGridProduct(model.products[index]!, context),
           )
         ,
 
@@ -153,7 +165,8 @@ class ProductScreen extends StatelessWidget {
 
   }
 
-  Widget buildGridProduct(ProductsData model){
+  Widget buildGridProduct(ProductsData model, context){
+    var cubit = HomeScreenCubit.get(context);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
@@ -212,41 +225,50 @@ class ProductScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        '${model.price.round()}',
-                        style: const TextStyle(
-                            color: defaultColor,
-                            fontSize: 14,
-                            // fontWeight: FontWeight.w500
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      if (model.discount > 0) Text(
-                        '${model.oldPrice.round()}',
-                        style: const TextStyle(
-                          decoration: TextDecoration.lineThrough,
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(onPressed: (){
-                        print('pressed');
-                      },
-                        iconSize: 18,
-                        icon: const Icon(
-                            Icons.favorite_border,
-                            // size: 20,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${model.price.round()}',
+                          style: const TextStyle(
+                              color: defaultColor,
+                              fontSize: 14,
+                              // fontWeight: FontWeight.w500
                           ),
-                        // padding: EdgeInsets.all(0),
-                      )
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        if (model.discount > 0) Text(
+                          '${model.oldPrice.round()}',
+                          style: const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                              color: Colors.grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        const Spacer(),
+                        CircleAvatar(
+                          backgroundColor: cubit.favourites[model.id]! ? defaultColor : Colors.grey,
+                          child: IconButton(onPressed: (){
+                            cubit.userFavourites(model.id);
+                            // print(model.id);
+                            // print(model.inFavorites);
+                          },
+                            iconSize: 18,
+                            icon: const Icon(
+                                Icons.favorite_border,
+                                color: Colors.white,
+                                // size: 20,
+                              ),
+                            // padding: EdgeInsets.all(0),
+                          ),
+                        )
 
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

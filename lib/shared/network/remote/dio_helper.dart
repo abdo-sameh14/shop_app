@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/adapter.dart';
 
+import '../../components/constants.dart';
+
 
 class DioHelper{
 
@@ -49,7 +51,7 @@ class DioHelper{
 }) async {
     dio?.options.headers = {
       'lang': lang,
-      'token': token,
+      'Authorization': token,
       'Content-Type' : 'application/json'
     };
     return await dio!.post(url, queryParameters: query, data: data);

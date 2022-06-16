@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/categories_model/categories_model.dart';
+import 'package:news_app/models/favourites_model/favourites_model.dart';
+import 'package:news_app/models/favourites_model/get_fav_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
 import 'package:news_app/modules/categories_screen/categories_screen.dart';
 import 'package:news_app/modules/favourites_screen/favourites_screen.dart';
@@ -16,6 +18,8 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
 
   static HomeScreenCubit get(context) => BlocProvider.of(context);
 
+  Map<int?, bool?> favourites = {};
+
   HomeModel? homeModel;
 
   void getHomeData(){
@@ -24,9 +28,15 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     {
       homeModel = HomeModel.fromJson(value.data);
 
-      printFullText(homeModel!.data!.products[0]!.name.toString());
-      printFullText(homeModel!.data!.banners[0]!.image.toString());
+      for (var element in homeModel!.data!.products) {
+        favourites.addAll({
+          element?.id: element?.inFavorites
+        });
+      }
+      // printFullText(homeModel!.data!.products[0]!.name.toString());
+      // printFullText(homeModel!.data!.banners[0]!.image.toString());
 
+      print(favourites.toString());
 
       emit(HomeScreenSuccessState(homeModel));
     }).catchError((error){
@@ -47,6 +57,56 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }).catchError((error){
       print(error.toString());
       emit(CategoryScreenErrorState(error.toString()));
+    });
+  }
+
+  GetFavouriteModel? getFavouriteModel;
+
+  void getFavData(){
+    emit(GetFavouritesLoadingState());
+    DioHelper.getData(
+      url: FAVOURITES,
+      lang: 'en',
+      token: token
+    ).then((value)
+    {
+      getFavouriteModel = GetFavouriteModel.fromJson(value.data);
+      emit(GetFavouritesSuccessState(getFavouriteModel));
+    }).catchError((error){
+      print(error.toString());
+      emit(GetFavouritesErrorState(error.toString()));
+    });
+  }
+
+  FavouritesModel? favouritesModel;
+
+  void userFavourites(int? productId){
+    favourites[productId] = !favourites[productId]!;
+    emit(FavouriteScreenState(favouritesModel));
+    
+    DioHelper.postData(url: FAVOURITES,
+        data:
+        {
+          'product_id': productId,
+        },
+        token: token,
+        lang: 'en'
+    ).then((value) {
+      // print(Authorization)
+      favouritesModel = FavouritesModel.fromJson(value.data);
+      // printFullText(favouritesModel!.status!.toString());
+      if(!favouritesModel!.status!){
+        favourites[productId] = !favourites[productId]!;
+        emit(FavouriteScreenFalseState(favouritesModel));
+      }else{
+        getFavData();
+        emit(FavouriteScreenSuccessState(favouritesModel));
+      }
+
+    }).catchError((error){
+      favourites[productId] = !favourites[productId]!;
+      print(error.toString());
+      emit(FavouriteScreenErrorState(error.toString()));
     });
   }
 
