@@ -27,6 +27,7 @@ void main(context) async {
       final bool? isDark = CacheHelper?.getBool(key: 'isDark');
       bool? onBoarding = CacheHelper?.getData(key: 'onBoarding') ?? false;
       token = CacheHelper?.getData(key: 'token');
+      print(token);
 
       final Widget widget;
       if(onBoarding!){
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => HomeScreenCubit()..getHomeData()..getCategoryData(),
+          create: (BuildContext context) => HomeScreenCubit()..getHomeData()..getCategoryData()..getFavData(),
         ),
         BlocProvider(
           create: (BuildContext context) => LoginScreenCubit()

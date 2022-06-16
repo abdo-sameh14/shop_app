@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:news_app/layout/home_screen/home_%20screen.dart';
 import 'package:news_app/layout/layout_screen.dart';
 import 'package:news_app/modules/Login_screen/Login_cubit.dart';
 import 'package:news_app/modules/login_screen/login_states.dart';
@@ -24,7 +25,7 @@ class LoginScreen extends StatelessWidget {
           if(state is LoginScreenSuccessState){
             if(state.loginModel!.status!){
               CacheHelper.setData(key: 'token', value: state.loginModel!.data!.token).then((value)
-              => navigateAndReplaceTo(context, ShopLayoutScreen()));
+              => navigateAndReplaceTo(context, const HomeScreen()));
 
               showToast(msg: state.loginModel?.message, state: ToastStates.success);
             }

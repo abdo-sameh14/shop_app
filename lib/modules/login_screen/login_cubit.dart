@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/layout/home_screen/home_%20screen.dart';
 import 'package:news_app/models/login_model/login_model.dart';
 import 'package:news_app/modules/login_screen/login_screen.dart';
 import 'package:news_app/modules/login_screen/login_states.dart';
@@ -24,7 +25,7 @@ class LoginScreenCubit extends Cubit<LoginScreenStates> {
       'email' : email,
       'password' : password
     },
-      // lang: 'en'
+      lang: 'en'
     ).then((value) {
       // print(value.data);
       loginModel = ShopLoginModel.fromJson(value.data);
