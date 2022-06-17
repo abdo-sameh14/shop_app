@@ -21,7 +21,7 @@ class LoginScreenCubit extends Cubit<LoginScreenStates> {
     required String password
 }){
     emit(LoginScreenLoadingState());
-    DioHelper.postData(url: LOGIN, data: {
+    DioHelper.postData(url: login, data: {
       'email' : email,
       'password' : password
     },

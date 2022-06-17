@@ -8,6 +8,7 @@ import 'package:news_app/modules/Login_screen/Login_cubit.dart';
 import 'package:news_app/modules/login_screen/login_states.dart';
 import 'package:news_app/modules/register_screen/register_screen.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/network/local/chache%20_helper.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -24,8 +25,10 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if(state is LoginScreenSuccessState){
             if(state.loginModel!.status!){
-              CacheHelper.setData(key: 'token', value: state.loginModel!.data!.token).then((value)
-              => navigateAndReplaceTo(context, const HomeScreen()));
+              CacheHelper.setData(key: 'token', value: state.loginModel!.data!.token).then((value) {
+                token = state.loginModel!.data!.token;
+                navigateAndReplaceTo(context, const HomeScreen());
+              });
 
               showToast(msg: state.loginModel?.message, state: ToastStates.success);
             }

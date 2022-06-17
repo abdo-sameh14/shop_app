@@ -4,6 +4,7 @@ import 'package:news_app/models/categories_model/categories_model.dart';
 import 'package:news_app/models/favourites_model/favourites_model.dart';
 import 'package:news_app/models/favourites_model/get_fav_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
+import 'package:news_app/models/login_model/login_model.dart';
 import 'package:news_app/modules/categories_screen/categories_screen.dart';
 import 'package:news_app/modules/favourites_screen/favourites_screen.dart';
 import 'package:news_app/modules/products_screen/product_screen.dart';
@@ -24,7 +25,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
 
   void getHomeData(){
     emit(HomeScreenLoadingState());
-    DioHelper.getData(url: HOME, lang: 'en', token: token).then((value)
+    DioHelper.getData(url: home, lang: 'en', token: token).then((value)
     {
       homeModel = HomeModel.fromJson(value.data);
 
@@ -45,10 +46,24 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     });
   }
 
+  ShopLoginModel? profileDataModel;
+
+  void getProfileData(){
+    emit(GetProfileDataLoadingState());
+    DioHelper.getData(url: profile, lang: 'en', token: token).then((value)
+    {
+      profileDataModel = ShopLoginModel.fromJson(value.data);
+      emit(GetProfileDataSuccessState(profileDataModel));
+    }).catchError((error){
+      print(error.toString());
+      emit(GetProfileDataErrorState(error.toString()));
+    });
+  }
+
   CategoryModel? categoryModel;
 
   void getCategoryData(){
-    DioHelper.getData(url: CATEGORIES, lang: 'en').then((value)
+    DioHelper.getData(url: categories, lang: 'en').then((value)
     {
       categoryModel = CategoryModel.fromJson(value.data);
 
@@ -65,7 +80,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   void getFavData(){
     emit(GetFavouritesLoadingState());
     DioHelper.getData(
-      url: FAVOURITES,
+      url: favs,
       lang: 'en',
       token: token
     ).then((value)
@@ -84,7 +99,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     favourites[productId] = !favourites[productId]!;
     emit(FavouriteScreenState(favouritesModel));
     
-    DioHelper.postData(url: FAVOURITES,
+    DioHelper.postData(url: favs,
         data:
         {
           'product_id': productId,
@@ -120,7 +135,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     ProductScreen(),
     const CategoriesScreen(),
     const FavouritesScreen(),
-    const SettingsScreen(),
+    SettingsScreen(),
   ];
   
 }

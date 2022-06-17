@@ -38,12 +38,6 @@ class HomeScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: (){
-                  signOut(context, loginScreen: LoginScreen());
-                },
-                icon: const Icon(Icons.logout_outlined),
-              ),
-              IconButton(
-                onPressed: (){
                   navigateTo(context, const SearchScreen());
                 },
                 icon: const Icon(Icons.search),
