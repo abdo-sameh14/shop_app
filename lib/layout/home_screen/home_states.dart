@@ -102,4 +102,22 @@ class GetProfileDataErrorState extends HomeScreenStates {
   GetProfileDataErrorState(this.error);
 }
 
+class UpdateProfileDataLoadingState extends HomeScreenStates {
+
+}
+
+class UpdateProfileDataSuccessState extends HomeScreenStates {
+
+  final ShopLoginModel? profileData;
+
+
+  UpdateProfileDataSuccessState (this.profileData);
+}
+
+class UpdateProfileDataErrorState extends HomeScreenStates {
+
+  String error;
+  UpdateProfileDataErrorState(this.error);
+}
+
 class HomeScreenChangeBotNavBar extends HomeScreenStates{}

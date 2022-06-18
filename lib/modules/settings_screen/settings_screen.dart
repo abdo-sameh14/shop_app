@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/home_screen/home_cubit.dart';
 import 'package:news_app/layout/home_screen/home_states.dart';
+import 'package:news_app/modules/edit_profile_screen/edit_profile_screen.dart';
 import 'package:news_app/shared/styles/colors.dart';
 
 import '../../shared/components/components.dart';
@@ -25,19 +26,9 @@ class SettingsScreen extends StatelessWidget {
         nameController.text = cubit.data!.name!;
         emailController.text = cubit.data!.email!;
         phoneController.text = cubit.data!.phone!;
-        List<ListTile> userData = [
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: Text(nameController.text),
-            subtitle: const Text('Name'),
-            style: ListTileStyle.drawer,
-
-          ),
-        ];
         return ConditionalBuilder(
-          condition: cubit != null ,
-          builder: (context) => Container(
-            color: Colors.white,
+          condition: cubit != null,
+          builder: (context) => SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -125,6 +116,18 @@ class SettingsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  defaultButton(function: ()
+                  {
+                    navigateTo(context, EditProfileScreen());
+                  },
+                    text: 'Edit Profile',
+                    backgroundColor: defaultColor,
+
                   ),
                   const SizedBox(
                     height: 20,

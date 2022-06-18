@@ -1,5 +1,7 @@
 const login = 'login';
 
+const register = 'register';
+
 const home = 'home';
 
 const categories = 'categories';
@@ -7,3 +9,5 @@ const categories = 'categories';
 const favs = 'favorites';
 
 const profile = 'profile';
+
+const updateProfile = 'update-profile';

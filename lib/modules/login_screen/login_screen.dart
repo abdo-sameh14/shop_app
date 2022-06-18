@@ -11,6 +11,8 @@ import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/network/local/chache%20_helper.dart';
 
+import '../../layout/home_screen/home_cubit.dart';
+
 class LoginScreen extends StatelessWidget {
 
   var emailController = TextEditingController();
@@ -19,14 +21,14 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => LoginScreenCubit(),
-      child: BlocConsumer<LoginScreenCubit, LoginScreenStates>(
+    return BlocConsumer<LoginScreenCubit, LoginScreenStates>(
         listener: (context, state) {
           if(state is LoginScreenSuccessState){
             if(state.loginModel!.status!){
               CacheHelper.setData(key: 'token', value: state.loginModel!.data!.token).then((value) {
                 token = state.loginModel!.data!.token;
+                HomeScreenCubit.get(context).currentIndex = 0;
+                HomeScreenCubit.get(context).getProfileData();
                 navigateAndReplaceTo(context, const HomeScreen());
               });
 
@@ -123,7 +125,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: (){
-                                navigateTo(context, const RegisterScreen());
+                                navigateTo(context, RegisterScreen());
                               },
                               child: const Text(
                                 'Register Now',
@@ -142,7 +144,6 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         },
-      ),
     );
   }
 }
