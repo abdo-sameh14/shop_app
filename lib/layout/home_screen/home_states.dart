@@ -2,6 +2,7 @@ import 'package:news_app/models/categories_model/categories_model.dart';
 import 'package:news_app/models/favourites_model/favourites_model.dart';
 import 'package:news_app/models/favourites_model/get_fav_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
+import 'package:news_app/models/login_model/login_model.dart';
 
 abstract class HomeScreenStates {}
 
@@ -81,6 +82,24 @@ class GetFavouritesErrorState extends HomeScreenStates {
 
   String error;
   GetFavouritesErrorState(this.error);
+}
+
+class GetProfileDataLoadingState extends HomeScreenStates {
+
+}
+
+class GetProfileDataSuccessState extends HomeScreenStates {
+
+  final ShopLoginModel? profileData;
+
+
+  GetProfileDataSuccessState (this.profileData);
+}
+
+class GetProfileDataErrorState extends HomeScreenStates {
+
+  String error;
+  GetProfileDataErrorState(this.error);
 }
 
 class HomeScreenChangeBotNavBar extends HomeScreenStates{}

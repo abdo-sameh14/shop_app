@@ -16,7 +16,7 @@ class ShopCubit extends Cubit<ShopAppStates> {
     // const BusinessScreen(),
     // const SportsScreen(),
     // const ScienceScreen(),
-    const SettingsScreen(),
+    SettingsScreen(),
   ];
 
   List<BottomNavigationBarItem> botNavBarItems = [
