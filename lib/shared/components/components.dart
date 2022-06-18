@@ -224,7 +224,7 @@ Widget defaultButton(
       child: MaterialButton(
         onPressed: function,
         child: Text(
-          text.toUpperCase(),
+          text,
           style: TextStyle(fontSize: fontSize, color: fontColor),
         ),
       ),

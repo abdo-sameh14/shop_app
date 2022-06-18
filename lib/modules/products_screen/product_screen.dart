@@ -47,71 +47,75 @@ class ProductScreen extends StatelessWidget {
     var categoryModel = HomeScreenCubit.get(context).categoryModel?.data?.data;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: CarouselSlider(
-                items: model.data?.banners.map((e) {
-                  return Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage('${e?.image}')
-                      )
-                    ),
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                  initialPage: 0,
-                  height: 250,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(seconds: 1),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  scrollDirection: Axis.horizontal,
-                  enlargeCenterPage: true,
-                  pauseAutoPlayOnManualNavigate: true,
-                  pauseAutoPlayOnTouch: true,
-                  enableInfiniteScroll: true,
-                  scrollPhysics: const BouncingScrollPhysics(),
-                )),
-          ),
-          const Text(
-            'Categories',
-            style: TextStyle(
-              color: defaultColor,
-              fontSize: 25
+      child: Container(
+        color: Colors.grey[300],
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: CarouselSlider(
+                  items: model.data?.banners.map((e) {
+                    return Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage('${e?.image}')
+                        )
+                      ),
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    initialPage: 0,
+                    height: 250,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 3),
+                    autoPlayAnimationDuration: const Duration(seconds: 1),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    scrollDirection: Axis.horizontal,
+                    enlargeCenterPage: true,
+                    pauseAutoPlayOnManualNavigate: true,
+                    pauseAutoPlayOnTouch: true,
+                    enableInfiniteScroll: true,
+                    scrollPhysics: const BouncingScrollPhysics(),
+                  )),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 100,
-            child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => buildCatItem(categoryModel![index]!),
-              separatorBuilder: (context, index) => const SizedBox(
-                width: 5,
-                ),
-              itemCount: categoryModel!.length),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            'New Products',
-            style: TextStyle(
-              color: defaultColor,
-              fontSize: 25
+            const Text(
+              'Categories',
+              style: TextStyle(
+                color: defaultColor,
+                fontSize: 25
+              ),
             ),
-          ),
-          gridViewBuilder(model.data!, context)
-        ],
+            const SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 100,
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => buildCatItem(categoryModel![index]!),
+                separatorBuilder: (context, index) => const SizedBox(
+                  width: 5,
+                  ),
+                itemCount: categoryModel!.length),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'New Products',
+              style: TextStyle(
+                color: defaultColor,
+                fontSize: 25
+              ),
+            ),
+            gridViewBuilder(model.data!, context)
+          ],
+        ),
       ),
     );
   }

@@ -19,9 +19,9 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state){
         var cubit = HomeScreenCubit.get(context);
         return Scaffold(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            centerTitle: true,
+            // centerTitle: true,
             title: Text(
               'Salla'.toUpperCase(),
               style: const TextStyle(

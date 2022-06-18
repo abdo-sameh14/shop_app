@@ -46,7 +46,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     });
   }
 
-  ShopLoginModel? profileDataModel;
+  ShopLoginModel?  profileDataModel;
 
   void getProfileData(){
     emit(GetProfileDataLoadingState());
@@ -57,6 +57,34 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }).catchError((error){
       print(error.toString());
       emit(GetProfileDataErrorState(error.toString()));
+    });
+  }
+
+  void updateProfileData({
+    required String name,
+    required String email,
+    required String phone,
+
+  }){
+    emit(UpdateProfileDataLoadingState());
+    DioHelper.putData(
+        url: updateProfile,
+        lang: 'en',
+        token: token,
+        data: {
+          'name' : name,
+          'email' : email,
+          'phone' : phone,
+        }).then((value)
+    {
+      profileDataModel = ShopLoginModel.fromJson(value.data);
+      profileDataModel?.data?.name = name;
+      profileDataModel?.data?.email = email;
+      profileDataModel?.data?.phone = phone;
+      emit(UpdateProfileDataSuccessState(profileDataModel));
+    }).catchError((error){
+      print(error.toString());
+      emit(UpdateProfileDataErrorState(error.toString()));
     });
   }
 

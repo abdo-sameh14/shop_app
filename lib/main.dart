@@ -14,6 +14,7 @@ import 'package:news_app/layout/layout_screen.dart';
 import 'package:news_app/shared/network/local/chache%20_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
+import 'modules/Register_screen/Register_cubit.dart';
 import 'shared/styles/bloc_observer.dart';
 
 void main(context) async {
@@ -64,6 +65,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (BuildContext context) => LoginScreenCubit()
+        ),
+        BlocProvider(
+            create: (BuildContext context) => RegisterScreenCubit()
         ),
       ],
       child: BlocConsumer<HomeScreenCubit, HomeScreenStates>(
