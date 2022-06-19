@@ -1,8 +1,11 @@
+import 'package:news_app/layout/home_screen/home_%20screen.dart';
 import 'package:news_app/models/categories_model/categories_model.dart';
 import 'package:news_app/models/favourites_model/favourites_model.dart';
 import 'package:news_app/models/favourites_model/get_fav_model.dart';
 import 'package:news_app/models/home_model/home_model.dart';
 import 'package:news_app/models/login_model/login_model.dart';
+
+import '../../models/search_model/search_model.dart';
 
 abstract class HomeScreenStates {}
 
@@ -119,5 +122,19 @@ class UpdateProfileDataErrorState extends HomeScreenStates {
   String error;
   UpdateProfileDataErrorState(this.error);
 }
+
+// class SearchLoadingState extends HomeScreenStates {}
+//
+// class SearchSuccessState extends HomeScreenStates {
+//   SearchModel? model;
+//
+//   SearchSuccessState(this.model);
+// }
+//
+// class SearchErrorState extends HomeScreenStates {
+//
+//   String error;
+//   SearchErrorState(this.error);
+// }
 
 class HomeScreenChangeBotNavBar extends HomeScreenStates{}
